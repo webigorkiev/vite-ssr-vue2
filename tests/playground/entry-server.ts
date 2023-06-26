@@ -1,4 +1,4 @@
-import ssr from "@/vue/client";
+import ssr from "@/vue/server";
 import options from "./entry-options";
 import App from "./App.vue";
 

@@ -24,6 +24,7 @@
         },
         methods: {
             add() {
+                console.log("add");
                 this.count++;
             },
         },

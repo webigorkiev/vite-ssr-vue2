@@ -12,3 +12,7 @@ export default defineComponent({
   name: 'App',
 })
 </script>
+
+<style lang="scss">
+@import "./css/style.scss";
+</style>
