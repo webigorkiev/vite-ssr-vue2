@@ -2,10 +2,10 @@ import Vue from "vue";
 
 import App from "./App.vue";
 import VCA, { createApp, h } from "@vue/composition-api";
-import './style.scss'
+import './css/style.scss'
 import VueRouter from "vue-router";
-import {createRouter} from "./router/index";
-import {createStore} from "./store/index";
+import {createRouter} from "./router";
+import {createStore} from "./store";
 
 Vue.config.productionTip = false;
 

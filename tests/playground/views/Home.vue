@@ -7,9 +7,7 @@
             <img src="../assets/vue.svg" class="logo vue" alt="Vue logo" />
         </a>
         <h1>Vite + VUE2</h1>
-        <h2>
-            Vite ⚡ - Vue2 - TS - VueRouter - Vuex - Sass
-        </h2>
+        <h2>Vite ⚡ - Vue2 - TS - VueRouter - Vuex - Sass</h2>
         <h4>{{count}}</h4>
         <button @click="add">Count++</button>
     </div>
