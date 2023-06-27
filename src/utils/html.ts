@@ -1,10 +1,6 @@
-/**
- * Get file type by extension
- * @param file
- */
+// Get file type by extension
 const fileType = (file: string): "script"|"style"|"font"|"image"| "" => {
     const ext = file.split(".").pop()?.toLowerCase() || "";
-
     if(ext === "js") {
         return "script";
     } else if(ext === "css") {
@@ -14,18 +10,10 @@ const fileType = (file: string): "script"|"style"|"font"|"image"| "" => {
     } else if(/woff2?|ttf|otf|eot/.test(ext)) {
         return "font";
     }
-
     return "";
 };
 
-/**
- * Find addition dependencies
- * @param modules
- * @param manifest
- * @param shouldPreload user want to controll what preload
- * @param shouldPrefetch user whant to control what prefatch
- * @returns files dependency
- */
+// Find addition dependencies
 export const findDependencies = (
     modules: string[],
     manifest: Record<string, string[]>,
@@ -37,7 +25,6 @@ export const findDependencies = (
 } => {
     const preload = new Set<string>();
     const prefetch = new Set<string>();
-
     for(const id of modules || []) {
         for(const file of manifest[id] || []) {
             const asType = fileType(file);
@@ -53,7 +40,6 @@ export const findDependencies = (
             preload.add(file);
         }
     }
-
     for(const id of Object.keys(manifest)) {
         for(const file of manifest[id]) {
             if(!preload.has(file)) {
@@ -67,7 +53,6 @@ export const findDependencies = (
                 if(shouldPrefetch && !shouldPrefetch(file, asType)) {
                     continue;
                 }
-
                 prefetch.add(file);
             }
         }
@@ -76,11 +61,7 @@ export const findDependencies = (
     return {preload: [...preload], prefetch: [...prefetch]};
 };
 
-/**
- * Form preloaded links
- * @param files
- * @returns array of strings html
- */
+// Form preloaded links
 export const renderPreloadLinks = (files: string[]): Array<string> => {
     const link = [];
 
@@ -102,11 +83,7 @@ export const renderPreloadLinks = (files: string[]): Array<string> => {
     return link;
 };
 
-/**
- * Form Prefetch links
- * @param files
- * @returns array of strings html
- */
+// Form Prefetch links
 export const renderPrefetchLinks = (files: string[]): Array<string> => {
     const link = [];
 

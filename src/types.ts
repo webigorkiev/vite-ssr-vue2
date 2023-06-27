@@ -44,7 +44,8 @@ type HookResponse = void | {
         body?:string,
         dependencies?:Array<string>
     },
-    context?:Record<string, any>
+    context?:Record<string, any>,
+    app?: Vue
 }
 export type Hook = (params: {
     app?: Vue
@@ -63,7 +64,8 @@ export interface CreatorOptions {
     shouldPreload?:(file: string, type: string) => boolean, // shouldPreload aka [shouldPreload](https://ssr.vuejs.org/api/#shouldpreload)
     shouldPrefetch?:(file: string, type: string) => boolean, // shouldPrefetch aka [shouldPrefetch](https://ssr.vuejs.org/api/#shouldprefetch)
     mount?: {
-        rootContainer?:any
+        rootContainer?:any,
+        hydrating?: boolean // default true
     }, // vue mount options (for client side)
     rootProps?:Record<string, any>|null // vue root props
 }

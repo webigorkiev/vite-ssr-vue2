@@ -2,7 +2,6 @@ import type {Plugin, Connect, ResolvedConfig, UserConfig} from "vite";
 import {createHandler} from "./serve/handler";
 
 import type {PluginOptions, PluginOptionsInternal} from "./types";
-import type {CreatorOptions} from "@/types";
 export type {PluginOptions, PluginOptionsInternal};
 
 export default (opt:PluginOptions = {}): Plugin => {

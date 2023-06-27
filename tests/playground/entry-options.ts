@@ -1,5 +1,5 @@
 import Vue from "vue";
-import {defineOptions} from "@/defineOptions";
+import {defineOptions} from "vite-ssr-vue2";
 import {createHead, HeadVuePlugin} from "@vueuse/head";
 import {createRouter} from "./router";
 import {createStore} from "./store";

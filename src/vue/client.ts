@@ -16,16 +16,16 @@ const createViteSsrVue:ClientHandler = async(App, options= {}) => {
     const serializer = options.serializer || unserialize;
     const initialState =  await serializer(window.__INITIAL_STATE__);
     const url = window.location;
-    let store: Store<any>|undefined, router: Router|undefined;
+    let store: Store<any>|undefined, router: Router|undefined, app: Vue|undefined;
 
     if(options.created) {
-        ({store, router} = (await options.created({
+        ({store, router, app} = (await options.created({
             url,
             isClient: true,
             initialState: initialState
         })) || {});
     }
-    const app = new Vue({
+    const vueIns = app || new Vue({
         ...(router ? {router}:{}),
         ...(store ? {store}:{}),
         render: (h) => h(App)
@@ -40,7 +40,7 @@ const createViteSsrVue:ClientHandler = async(App, options= {}) => {
     if(options.mounted) {
         await options.mounted({
             url,
-            app,
+            app: vueIns,
             isClient: true,
             initialState: initialState,
             store,
@@ -50,6 +50,6 @@ const createViteSsrVue:ClientHandler = async(App, options= {}) => {
     if(store && initialState.state) {
         store.replaceState(initialState.state);
     }
-    app.$mount(options?.mount?.rootContainer||"#app", true);
+    vueIns.$mount(options?.mount?.rootContainer||"#app", options?.mount?.hydrating ?? true);
 };
 export default createViteSsrVue;

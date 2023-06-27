@@ -11,9 +11,7 @@ import Vue from "vue";
 
 export type {Context, CreatorOptions};
 
-/**
- * Create client instance of vue app
- */
+// Create server instance of vue app
 const createViteSsrVue:SsrHandler = (App, options: CreatorOptions = {}) => {
 
     // manifest - for prod build
@@ -29,14 +27,14 @@ const createViteSsrVue:SsrHandler = (App, options: CreatorOptions = {}) => {
             initialState: {},
             ...extra,
         };
-        const { head, router, store, inserts, context } =
+        const { head, router, store, inserts, context, app } =
         (options.created &&
             (await options.created({
                 url: createUrl(url),
                 ...ssrContext,
             }))) ||
         {};
-        const app = new Vue({
+        const vueInst = app || new Vue({
             ...(router ? {router}:{}),
             ...(store ? {store}:{}),
             render: (h) => h(App)
@@ -54,7 +52,7 @@ const createViteSsrVue:SsrHandler = (App, options: CreatorOptions = {}) => {
 
         options.mounted && (await options.mounted({
             url: createUrl(url),
-            app,
+            app: vueInst,
             router,
             store,
             ...ssrContext,
@@ -66,7 +64,7 @@ const createViteSsrVue:SsrHandler = (App, options: CreatorOptions = {}) => {
         }
 
         const renderer = createRenderer()
-        const body = inserts?.body || await renderer.renderToString(app, Object.assign(ssrContext, context || {}));
+        const body = inserts?.body || await renderer.renderToString(vueInst, Object.assign(ssrContext, context || {}));
         let headTags = inserts?.headTags || "",
             htmlAttrs = inserts?.htmlAttrs || "",
             bodyAttrs = inserts?.bodyAttrs || "",
