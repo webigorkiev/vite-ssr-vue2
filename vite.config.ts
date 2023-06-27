@@ -5,6 +5,7 @@ import * as path from "path";
 
 export default defineConfig({
     logLevel: "info",
+    publicDir: "./tests/playground/public",
     resolve: {
         alias: [
             {
