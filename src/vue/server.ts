@@ -6,7 +6,6 @@ import {renderHeadToString} from "@vueuse/head";
 import {findDependencies, renderPreloadLinks, renderPrefetchLinks} from "@/utils/html";
 import type {CreatorOptions} from "@/types";
 import Router from "vue-router";
-import {App, createApp} from "@vue/composition-api";
 import Vue from "vue";
 
 export type {Context, CreatorOptions};

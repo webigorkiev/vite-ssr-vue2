@@ -10,13 +10,18 @@
         <h2>Vite ⚡ - Vue2 - TS - VueRouter - Vuex - Sass</h2>
         <h4>{{count}}</h4>
         <button @click="add">Count++</button>
+        <ClientOnly>
+            ClientOnly
+        </ClientOnly>
     </div>
 </template>
 
 <script lang="ts">
-    import {defineComponent} from "@vue/composition-api";
+    import Vue from "vue";
+    import {ClientOnly} from "vite-ssr-vue2";
 
-    export default defineComponent({
+    export default Vue.extend({
+        components: {ClientOnly},
         data() {
             return {
                 count: 0,

@@ -12,7 +12,64 @@
 <div class="col-content">
 <div class="tsd-page-title">
 <h2>vite-ssr-vue2 - v0.0.1</h2></div>
-<div class="tsd-panel tsd-typography"></div></div>
+<div class="tsd-panel tsd-typography"><p align="center">
+  <a href="https://vitejs.dev" target="_blank" rel="noopener noreferrer">
+    <img width="180" src="https://vitejs.dev/logo.svg" alt="Vite logo">
+  </a>
+</p>
+
+<a id="md:vite-ssr-vue2" class="tsd-anchor"></a><h1><a href="#md:vite-ssr-vue2">vite-ssr-vue2</a></h1><blockquote>
+<p>For building powerful Server Side Rendering APP with <strong>Vite</strong> ⚡(Next Generation Frontend Tooling)</p>
+</blockquote>
+<a id="md:features" class="tsd-anchor"></a><h2><a href="#md:features">Features</a></h2><ul>
+<li>Fast HMR with vite</li>
+<li>Easy development start</li>
+<li>Small library size</li>
+<li>Compatible with Vite&#39;s plugin</li>
+<li>Flexible configuration and full control</li>
+<li>Support <code>shouldPreload</code> and <code>shouldPrefetch</code></li>
+</ul>
+<a id="md:documentation" class="tsd-anchor"></a><h2><a href="#md:documentation">Documentation</a></h2><p><a href="https://webigorkiev.github.io/vite-ssr-vue2/">https://webigorkiev.github.io/vite-ssr-vue2/</a></p>
+<a id="md:installation" class="tsd-anchor"></a><h2><a href="#md:installation">Installation</a></h2><p>Create a normal Vite project for Vue2. (see tests/playground)</p>
+<a id="md:usage" class="tsd-anchor"></a><h2><a href="#md:usage">Usage</a></h2><pre><code class="language-typescript"><span class="hl-0">// entry-client.ts</span><br/><span class="hl-1">import</span><span class="hl-2"> </span><span class="hl-3">ssr</span><span class="hl-2"> </span><span class="hl-1">from</span><span class="hl-2"> </span><span class="hl-4">&quot;vite-ssr-vue2/client&quot;</span><span class="hl-2">;</span><br/><span class="hl-1">import</span><span class="hl-2"> </span><span class="hl-3">App</span><span class="hl-2"> </span><span class="hl-1">from</span><span class="hl-2"> </span><span class="hl-4">&quot;./App.vue&quot;</span><span class="hl-2">;</span><br/><br/><span class="hl-1">export</span><span class="hl-2"> </span><span class="hl-1">default</span><span class="hl-2"> </span><span class="hl-5">ssr</span><span class="hl-2">(</span><span class="hl-3">App</span><span class="hl-2">);</span>
+</code><button>Copy</button></pre>
+<pre><code class="language-typescript"><span class="hl-0">// entry-server.ts</span><br/><span class="hl-1">import</span><span class="hl-2"> </span><span class="hl-3">ssr</span><span class="hl-2"> </span><span class="hl-1">from</span><span class="hl-2"> </span><span class="hl-4">&quot;vite-ssr-vue2/server&quot;</span><span class="hl-2">;</span><br/><span class="hl-1">import</span><span class="hl-2"> </span><span class="hl-3">App</span><span class="hl-2"> </span><span class="hl-1">from</span><span class="hl-2"> </span><span class="hl-4">&quot;./App.vue&quot;</span><span class="hl-2">;</span><br/><br/><span class="hl-1">export</span><span class="hl-2"> </span><span class="hl-1">default</span><span class="hl-2"> </span><span class="hl-5">ssr</span><span class="hl-2">(</span><span class="hl-3">App</span><span class="hl-2">);</span>
+</code><button>Copy</button></pre>
+<p>There can be only one entry point for the server and for the client. Plugin automatically changes alias for SSR. If for some reason you need separate entry points, then specify the server side in the <strong>ssr</strong> parameter</p>
+<details><summary>Available options for Vite plugin</summary>
+<p>
+
+<ul>
+<li><code>name</code>: plugin name (default: vite-ssr-vue2)</li>
+<li><code>ssr</code>: server entry point</li>
+</ul>
+</p>
+</details>
+
+<details><summary>Available options for Vite plugin</summary>
+<p>
+
+<ul>
+<li><code>created</code>: ({app, url, isClient, initialState}) - Hook that is called before each request, can be async. May return {router, store, head}</li>
+<li><code>serializer</code>: Custom function for serialization initial state</li>
+<li><code>shouldPreload</code>: shouldPreload aka <a href="https://ssr.vuejs.org/api/#shouldpreload">shouldPreload</a></li>
+<li><code>shouldPrefetch</code>: shouldPrefetch aka <a href="https://ssr.vuejs.org/api/#shouldprefetch">shouldPrefetch</a></li>
+<li><code>mount</code>: mount options for client side</li>
+<li><code>rootProps</code>: root props</li>
+</ul>
+</p>
+</details>
+
+<a id="md:accessing-context-res-and-req-objects" class="tsd-anchor"></a><h2><a href="#md:accessing-context-res-and-req-objects">Accessing context, res and req objects</a></h2><p>In the built-in dev server, context, req, res objects are passing to created hook.
+In production, you must pass these objects to the rendering function in order to have them available.</p>
+<pre><code class="language-typescript"><br/><span class="hl-2">({</span><span class="hl-3">html</span><span class="hl-2">} = </span><span class="hl-1">await</span><span class="hl-2"> </span><span class="hl-5">entry</span><span class="hl-2">(</span><span class="hl-3">url</span><span class="hl-2">, {</span><br/><span class="hl-2">    </span><span class="hl-3">manifest</span><span class="hl-2">,</span><br/><span class="hl-2">    </span><span class="hl-3">res</span><span class="hl-2">,</span><br/><span class="hl-2">    </span><span class="hl-3">req</span><span class="hl-2">,</span><br/><span class="hl-2">    </span><span class="hl-3">context</span><br/><span class="hl-2">}));</span>
+</code><button>Copy</button></pre>
+<a id="md:redirect" class="tsd-anchor"></a><h2><a href="#md:redirect">Redirect</a></h2><p>The <strong>redirect</strong> method add to <strong>res</strong> object for development, and requires implementation in production.</p>
+<a id="md:clientonly" class="tsd-anchor"></a><h2><a href="#md:clientonly">ClientOnly</a></h2><p>Aka vite-ssr, vite-ssr-vue2 exports ClientOnly component that renders its children only in the browser:</p>
+<pre><code class="language-vue"><br/><span class="hl-2">import { ClientOnly } from &quot;vite-ssr-vue2&quot;</span><br/><br/><span class="hl-6">&lt;</span><span class="hl-7">div</span><span class="hl-6">&gt;</span><br/><span class="hl-2">  &lt;ClientOnly&gt;</span><br/><span class="hl-2">      &lt;!--- your code  ---&gt;</span><br/><span class="hl-2">  &lt;/ClientOnly&gt;</span><br/><span class="hl-6">&lt;/</span><span class="hl-7">div</span><span class="hl-6">&gt;</span><br/>
+</code><button>Copy</button></pre>
+<a id="md:production" class="tsd-anchor"></a><h2><a href="#md:production">Production</a></h2><p>Run <code>vite build</code> for buildling your app. This will create 2 builds (client and server) that you can import and use from your Node backend.</p>
+</div></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -26,7 +83,24 @@
 <li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
 <li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
 <div class="tsd-theme-toggle">
-<h4 class="uppercase">Theme</h4><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div></div>
+<h4 class="uppercase">Theme</h4><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<details open class="tsd-index-accordion tsd-page-navigation"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg>On This Page</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li>
+<ul>
+<li><a href="#md:vite-ssr-vue2"><span>vite-<wbr/>ssr-<wbr/>vue2</span></a></li>
+<li>
+<ul>
+<li><a href="#md:features"><span>Features</span></a></li>
+<li><a href="#md:documentation"><span>Documentation</span></a></li>
+<li><a href="#md:installation"><span>Installation</span></a></li>
+<li><a href="#md:usage"><span>Usage</span></a></li>
+<li><a href="#md:accessing-context-res-and-req-objects"><span>Accessing context, res and req objects</span></a></li>
+<li><a href="#md:redirect"><span>Redirect</span></a></li>
+<li><a href="#md:clientonly"><span>Client<wbr/>Only</span></a></li>
+<li><a href="#md:production"><span>Production</span></a></li></ul></li></ul></li></ul></div></details></div>
 <div class="site-menu">
 <nav class="tsd-navigation"><a href="modules.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-4"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-namespace)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.33 16V7.24H10.77L13.446 14.74C13.43 14.54 13.41 14.296 13.386 14.008C13.37 13.712 13.354 13.404 13.338 13.084C13.33 12.756 13.326 12.448 13.326 12.16V7.24H14.37V16H12.93L10.266 8.5C10.282 8.692 10.298 8.936 10.314 9.232C10.33 9.52 10.342 9.828 10.35 10.156C10.366 10.476 10.374 10.784 10.374 11.08V16H9.33Z" fill="var(--color-text)"></path></g></svg><span>vite-<wbr/>ssr-<wbr/>vue2 -<wbr/> v0.0.1</span></a>
 <ul class="tsd-small-nested-navigation">

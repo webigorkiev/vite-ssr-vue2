@@ -12,7 +12,7 @@ const args = margv();
 
 const root = args.dev
     ? path.resolve("./node_modules/vite-ssr-vue2")
-    : path.resolve("./dist");
+    : path.resolve("./build");
 
 // eslint-disable-next-line no-console
 const log = console.log;

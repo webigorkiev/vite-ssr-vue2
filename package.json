@@ -19,7 +19,6 @@
     "@rollup/plugin-alias": "^5.0.0",
     "@types/node": "^20.3.2",
     "@vitejs/plugin-vue2": "^2.2.0",
-    "@vue/composition-api": "^1.7.1",
     "@vueuse/head": "^1.1.26",
     "chalk": "^4.1.1",
     "cross-fetch": "^3.1.4",
