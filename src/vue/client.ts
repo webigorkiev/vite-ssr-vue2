@@ -26,6 +26,7 @@ const createViteSsrVue:ClientHandler = async(App, options= {}) => {
         })) || {});
     }
     const vueIns = app || new Vue({
+        ...(options.rootProps ? {propsData: options.rootProps}: {}),
         ...(router ? {router}:{}),
         ...(store ? {store}:{}),
         render: (h) => h(App)
@@ -50,6 +51,19 @@ const createViteSsrVue:ClientHandler = async(App, options= {}) => {
     if(store && initialState.state) {
         store.replaceState(initialState.state);
     }
+
+    // Rendered
+    if(options.rendered) {
+        await options.rendered({
+            url,
+            app: vueIns,
+            isClient: true,
+            initialState: initialState,
+            store,
+            router
+        });
+    }
+
     vueIns.$mount(options?.mount?.rootContainer||"#app", options?.mount?.hydrating ?? true);
 };
 export default createViteSsrVue;

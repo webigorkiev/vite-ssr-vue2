@@ -34,6 +34,7 @@ const createViteSsrVue:SsrHandler = (App, options: CreatorOptions = {}) => {
             }))) ||
         {};
         const vueInst = app || new Vue({
+            ...(options.rootProps ? {propsData: options.rootProps}: {}),
             ...(router ? {router}:{}),
             ...(store ? {store}:{}),
             render: (h) => h(App)
@@ -59,7 +60,7 @@ const createViteSsrVue:SsrHandler = (App, options: CreatorOptions = {}) => {
 
         // store default behavior
         if(store) {
-            ssrContext.initialState.state = store.state;
+            ssrContext.initialState.state = store.state; // TODO изменение initialState приводит к изменению store.state
         }
 
         const renderer = createRenderer()
@@ -93,6 +94,16 @@ const createViteSsrVue:SsrHandler = (App, options: CreatorOptions = {}) => {
                 headTags += links.length ? "\n" + links.join("\n") : "";
             }
         }
+
+        // rendered hook
+        options.rendered && (await options.rendered({
+            url: createUrl(url),
+            app: vueInst,
+            router,
+            store,
+            ...ssrContext,
+        }));
+
         const initialState = await serializer(ssrContext.initialState || {});
 
         return {

@@ -58,6 +58,7 @@ export type Hook = (params: {
 export interface CreatorOptions {
     created?:Hook, // Fire when app instance created
     mounted?:Hook, // Fire after all internal operations, as router isReady
+    rendered?:Hook, // After ssr rendered or after replace state in client
     serializer?: (
         state: any
     ) => any | Promise<any>, // allows you to override the default serialization
