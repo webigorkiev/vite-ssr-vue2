@@ -13,7 +13,8 @@ Vue.use(HeadVuePlugin, head)
 Vue.use(head);
 
 export default defineOptions({
-   created({app}) {
+   created({app, url}) {
+      console.log(url);
       const router = createRouter();
       const store = createStore();
 

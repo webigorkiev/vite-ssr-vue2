@@ -1,3 +1,7 @@
+[1.0.4]
+
+* URL object undefended in ssr mode
+
 [1.0.3]
 
 * url type URL|Location
