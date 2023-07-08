@@ -1,3 +1,7 @@
+[1.0.3]
+
+* url type URL|Location
+
 [1.0.2]
 
 * Add rendered hook

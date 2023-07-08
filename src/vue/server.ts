@@ -17,11 +17,12 @@ const createViteSsrVue:SsrHandler = (App, options: CreatorOptions = {}) => {
     return async(url, {manifest, ...extra } = {}) => {
         const serializer = options.serializer || serialize;
         const ssrContext: {
+            url: URL,
             isClient: boolean,
             initialState: Record<string, any>
             [key: string]: any
         } = {
-            url,
+            url: createUrl(url, `${extra.protocol}://${extra.hostname}`),
             isClient: false,
             initialState: {},
             ...extra,
@@ -29,7 +30,6 @@ const createViteSsrVue:SsrHandler = (App, options: CreatorOptions = {}) => {
         const { head, router, store, inserts, context, app } =
         (options.created &&
             (await options.created({
-                url: createUrl(url),
                 ...ssrContext,
             }))) ||
         {};
@@ -51,7 +51,6 @@ const createViteSsrVue:SsrHandler = (App, options: CreatorOptions = {}) => {
         }
 
         options.mounted && (await options.mounted({
-            url: createUrl(url),
             app: vueInst,
             router,
             store,
@@ -97,7 +96,6 @@ const createViteSsrVue:SsrHandler = (App, options: CreatorOptions = {}) => {
 
         // rendered hook
         options.rendered && (await options.rendered({
-            url: createUrl(url),
             app: vueInst,
             router,
             store,

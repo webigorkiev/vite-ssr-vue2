@@ -1,10 +1,10 @@
-export const createUrl = (url?: string | URL) => {
+export const createUrl = (url: string | URL, base = 'http://e.g') => {
     url = url || "/";
     if(url instanceof URL) {
         return url;
     }
     if(!(url || '').includes('://')) {
-        url = 'http://e.g' + (url.startsWith("/") ? url : `/${url}`);
+        url = base + (url.startsWith("/") ? url : `/${url}`);
     }
     return new URL(url);
 };
