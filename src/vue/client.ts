@@ -31,15 +31,17 @@ const createViteSsrVue:ClientHandler = async(App, options= {}) => {
         ...(store ? {store}:{}),
         render: (h) => h(App)
     });
-    if(router) {
-        const path = url.pathname + url.search + url.hash;
-        await router.push(path); // TODO не срабатывает onReady
-        await new Promise(
-            resolve => (router as Router).onReady(() => resolve(true), (e: any) => {
-                throw e;
-            })
-        );
-    }
+
+    // No need for vue2
+    // if(router) {
+    //     const path = url.pathname + url.search + url.hash;
+    //     await router.push(path); // TODO не срабатывает onReady
+    //     await new Promise(
+    //         resolve => (router as Router).onReady(() => resolve(true), (e: any) => {
+    //             throw e;
+    //         })
+    //     );
+    // }
     if(options.mounted) {
         await options.mounted({
             url,
