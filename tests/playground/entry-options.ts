@@ -14,7 +14,6 @@ Vue.use(head);
 
 export default defineOptions({
    created({app, url}) {
-      console.log(url);
       const router = createRouter();
       const store = createStore();
 
