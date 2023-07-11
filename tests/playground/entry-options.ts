@@ -6,14 +6,13 @@ import {createStore} from "./store";
 import VueRouter from "vue-router";
 import Vuex from "vuex";
 
-const head = createHead();
 Vue.use(VueRouter);
 Vue.use(Vuex);
-Vue.use(HeadVuePlugin, head)
-Vue.use(head);
 
 export default defineOptions({
    created({app, url}) {
+      const head = createHead();
+      Vue.use(head);
       const router = createRouter();
       const store = createStore();
 
