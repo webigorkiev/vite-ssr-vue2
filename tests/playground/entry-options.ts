@@ -14,7 +14,7 @@ Vue.use(head);
 
 export default defineOptions({
    created({app, url}) {
-      const head = createHead();
+      const head = createHead(); // Use only this instance (To avoid the state singleton)
       const router = createRouter();
       const store = createStore();
 
