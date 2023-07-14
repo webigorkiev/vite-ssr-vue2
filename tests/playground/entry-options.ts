@@ -1,6 +1,6 @@
 import Vue from "vue";
 import {defineOptions} from "vite-ssr-vue2";
-import {createHead, HeadVuePlugin} from "@vueuse/head";
+import {createHead, Vue2ProvideUnheadPlugin} from "@unhead/vue";
 import {createRouter} from "./router";
 import {createStore} from "./store";
 import VueRouter from "vue-router";
@@ -9,7 +9,7 @@ import Vuex from "vuex";
 Vue.use(VueRouter);
 Vue.use(Vuex);
 const head = createHead();
-Vue.use(HeadVuePlugin, head)
+Vue.use(Vue2ProvideUnheadPlugin, head)
 Vue.use(head);
 
 export default defineOptions({

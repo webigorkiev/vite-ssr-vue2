@@ -2,7 +2,7 @@
   "name": "vite-ssr-vue2",
   "private": true,
   "description": "Vite utility for vue2 server side rendering",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "main": "./index.mjs",
   "types": "./index.d.ts",
   "scripts": {
@@ -18,8 +18,9 @@
   "devDependencies": {
     "@rollup/plugin-alias": "^5.0.0",
     "@types/node": "^20.3.2",
+    "@unhead/ssr": "^1.1.30",
+    "@unhead/vue": "^1.1.30",
     "@vitejs/plugin-vue2": "^2.2.0",
-    "@vueuse/head": "^1.1.26",
     "chalk": "^4.1.1",
     "cross-fetch": "^3.1.4",
     "esbuild": "^0.12.12",

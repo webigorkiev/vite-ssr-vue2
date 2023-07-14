@@ -2,7 +2,7 @@ import type {SsrHandler, Context} from "@/types";
 import {createRenderer} from "vue-server-renderer";
 import {serialize} from "@/utils/serialize";
 import {createUrl} from "@/utils/createUrl";
-import {renderHeadToString} from "@vueuse/head";
+import {renderSSRHead} from "@unhead/ssr";
 import {findDependencies, renderPreloadLinks, renderPrefetchLinks} from "@/utils/html";
 import type {CreatorOptions} from "@/types";
 import Router from "vue-router";
@@ -71,7 +71,7 @@ const createViteSsrVue:SsrHandler = (App, options: CreatorOptions = {}) => {
 
         // head default behavior
         if(head) {
-            ({headTags, htmlAttrs, bodyAttrs} = await renderHeadToString(head));
+            ({headTags, htmlAttrs, bodyAttrs} = await renderSSRHead(head));
         }
 
         if(manifest) {

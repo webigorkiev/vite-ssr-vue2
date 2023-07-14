@@ -1,6 +1,6 @@
 import type Vue from "vue";
 import type {Component} from "vue";
-import type {HeadClient} from "@vueuse/head";
+import type {Unhead} from "@unhead/vue";
 import type Router from "vue-router";
 import type {Store} from "vuex";
 import type {Connect, ViteDevServer} from "vite";
@@ -34,7 +34,7 @@ export interface Context {
     responseHeaders: Record<string, any>, // Response headers
 }
 type HookResponse = void | {
-    head?: HeadClient,
+    head?: Unhead,
     router?:Router,
     store?:Store<any>,
     inserts?: {
