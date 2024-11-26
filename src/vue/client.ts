@@ -56,7 +56,10 @@ const createViteSsrVue:ClientHandler = async(App, options= {}) => {
             router
         });
     }
-
-    vueIns.$mount(options?.mount?.rootContainer||"#app", options?.mount?.hydrating ?? true);
+    if(router) {
+        router.onReady(() => vueIns.$mount(options?.mount?.rootContainer||"#app", options?.mount?.hydrating ?? true));
+    } else {
+        vueIns.$mount(options?.mount?.rootContainer||"#app", options?.mount?.hydrating ?? true);
+    }
 };
 export default createViteSsrVue;
