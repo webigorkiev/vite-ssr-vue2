@@ -6,6 +6,10 @@ export const createRouter = () => new VueRouter({
         {
             path: '/',
             component: () => import("../views/Home.vue")
+        },
+        {
+            path: '/test',
+            component: () => import("../views/Test.vue")
         }
     ]
 });

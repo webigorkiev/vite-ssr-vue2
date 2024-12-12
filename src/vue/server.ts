@@ -7,6 +7,7 @@ import {findDependencies, renderPreloadLinks, renderPrefetchLinks} from "@/utils
 import type {CreatorOptions} from "@/types";
 import Router from "vue-router";
 import Vue from "vue";
+import {findFilesRoute} from "@/utils/findFilesRoute"
 
 export type {Context, CreatorOptions};
 
@@ -75,14 +76,14 @@ const createViteSsrVue:SsrHandler = (App, options: CreatorOptions = {}) => {
         }
 
         if(manifest) {
+            const modules = ssrContext.modules || findFilesRoute(vueInst.$route);
             const {preload, prefetch} = findDependencies(
-                ssrContext.modules,
+                modules,
                 manifest,
                 options.shouldPreload,
-                options.shouldPrefetch
+                options.shouldPrefetch // Будет работать
             );
             dependencies =  preload;
-
             if(preload.length > 0) {
                 const links = renderPreloadLinks(preload);
                 headTags += (links.length ? "\n" + links.join("\n"): "");

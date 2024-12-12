@@ -40,8 +40,8 @@ export const findDependencies = (
             preload.add(file);
         }
     }
-    for(const id of Object.keys(manifest)) {
-        for(const file of manifest[id]) {
+    for(const id of Object.keys(manifest)) { // Все идентификаторы модулей
+        for(const file of manifest[id]) { // Все необходимые файлы для модулей
             if(!preload.has(file)) {
                 const asType = fileType(file);
 

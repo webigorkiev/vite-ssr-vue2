@@ -11,6 +11,7 @@ export interface PluginOptions {
         [key: string]: string
     }
     serve?: (server: ViteDevServer, options: PluginOptionsInternal) => Connect.NextHandleFunction,
+    manifest?: Record<string, string[]>, // Возможна загрузка мнифеста
     [key: string]: any
 }
 
@@ -69,6 +70,7 @@ export interface CreatorOptions {
         hydrating?: boolean // default true
     }, // vue mount options (for client side)
     rootProps?:Record<string, any>|null // vue root props
+    manifest?:Record<string, string[]>, // Может быть передан манифейст клиента
 }
 export type SsrRenderer = (
     url: string | URL,

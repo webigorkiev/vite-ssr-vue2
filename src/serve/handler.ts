@@ -18,9 +18,7 @@ export const createHandler = (server: ViteDevServer, options: PluginOptionsInter
 
     return async(req, res, next) => {
         const response = res as http.ServerResponse & {redirect: (url: string, statusCode: 301|307) => void};
-
         if(req.method !== "GET" || !req.originalUrl) {
-
             return next();
         }
         response.redirect = (url: string, statusCode: 301|307 = 307) => {
@@ -32,7 +30,6 @@ export const createHandler = (server: ViteDevServer, options: PluginOptionsInter
         try {
             const template = await readIndexTemplate(server, req.originalUrl);
             const entry = options.ssr;
-
             if(!entry) {
                 response.statusCode = 200;
                 response.end("");
@@ -54,7 +51,12 @@ export const createHandler = (server: ViteDevServer, options: PluginOptionsInter
                 headers: req.headers,
                 responseHeaders: {"content-type": "text/html; charset=utf-8"},
             };
-            const htmlParts = await render(req.originalUrl, {req, res: response, context});
+            const htmlParts = await render(req.originalUrl, {
+                req,
+                res: response,
+                context,
+                manifest: options.manifest
+            });
             const html = buildHtml(template, htmlParts);
             response.statusCode = context.statusCode;
             Object.keys(context.responseHeaders).map(key => response.setHeader(key, context.responseHeaders[key]));
