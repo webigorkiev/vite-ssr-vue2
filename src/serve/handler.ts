@@ -55,7 +55,8 @@ export const createHandler = (server: ViteDevServer, options: PluginOptionsInter
                 req,
                 res: response,
                 context,
-                manifest: options.manifest
+                manifest: options.manifest,
+                logModules: options.logModules,
             });
             const html = buildHtml(template, htmlParts);
             response.statusCode = context.statusCode;

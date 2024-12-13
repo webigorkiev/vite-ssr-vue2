@@ -77,6 +77,9 @@ const createViteSsrVue:SsrHandler = (App, options: CreatorOptions = {}) => {
 
         if(manifest) {
             // Возможно передать список модулей для роута в meta
+            if(options.logModules) {
+                console.log(findFilesRoute(vueInst.$route));
+            }
             const modules = ssrContext.modules || vueInst.$route?.meta?.modules; // findFilesRoute(vueInst.$route); // TODO не рааботает для production
             const {preload, prefetch} = findDependencies(
                 modules,
