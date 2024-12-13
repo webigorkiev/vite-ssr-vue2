@@ -10,6 +10,7 @@
     import HeaderLine from "./components/HeaderLine.vue";
 
     export default Vue.extend({
+        name: "Test",
         components: {
             HeaderLine
         },
