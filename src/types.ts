@@ -71,8 +71,6 @@ export interface CreatorOptions {
         hydrating?: boolean // default true
     }, // vue mount options (for client side)
     rootProps?:Record<string, any>|null // vue root props
-    manifest?:Record<string, string[]>, // Может быть передан манифейст клиента
-    logModules?:boolean, // Выводить список модулей по роуту development
 }
 export type SsrRenderer = (
     url: string | URL,

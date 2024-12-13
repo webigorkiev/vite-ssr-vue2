@@ -75,7 +75,7 @@ const createViteSsrVue:SsrHandler = (App, options: CreatorOptions = {}) => {
             ({headTags, htmlAttrs, bodyAttrs} = await renderSSRHead(head));
         }
 
-        if(options.logModules) {
+        if(extra.logModules) {
             console.log(findFilesRoute(vueInst.$route));
         }
 
