@@ -11,7 +11,7 @@ export interface PluginOptions {
         [key: string]: string
     }
     serve?: (server: ViteDevServer, options: PluginOptionsInternal) => Connect.NextHandleFunction,
-    manifest?: Record<string, string[]>, // Возможна загрузка мнифеста
+    manifest?: Record<string, string[]>, // Возможна загрузка манифеста
     logModules?: boolean, // Выводить в консоль список модулей по роуту // Для development
     [key: string]: any
 }

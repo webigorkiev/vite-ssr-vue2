@@ -1,8 +1,7 @@
 import type {Route} from "vue-router";
 import path from "path";
 
-// Находим необходимые фалы по роуту
-// TODO работает только для dev сборки под Vite
+// Только для ssr, нужен plugin-id
 export const findFilesRoute = (route?: Route): string[] => {
     const matched = route?.matched || [];
     return [...new Set(matched.reduce((ac, row) => {
@@ -16,15 +15,15 @@ export const findFilesRoute = (route?: Route): string[] => {
 const searchFiles = (components: Record<string, any>, files: string[] = [], level = 0) => {
     Object.keys(components).forEach((key) => {
         const current = components[key];
-        if(current.__file) { // Компонент без потомков
-            files.push(path.relative(path.resolve(), current.__file));
+        if(current.__id) { // Компонент без потомков
+            files.push(current.__id);
         }
         if(current.components) {
             searchFiles(current.components, files, ++level);
         }
         if(current.options) {
-            if(current.options.__file) {
-                files.push(path.relative(path.resolve(), current.options.__file));
+            if(current.options.__id) {
+                files.push(current.options.__id);
             }
             if(current.options.components && level < 2) {
                 searchFiles(current.options.components, files, ++level);
@@ -33,5 +32,3 @@ const searchFiles = (components: Record<string, any>, files: string[] = [], leve
     });
     return files;
 }
-
-// TODO нет __file если production

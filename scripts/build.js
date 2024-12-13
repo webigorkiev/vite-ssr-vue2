@@ -53,7 +53,7 @@ const external = [
 // Build bundle by rollup
 const buildPlugin = async(root) => {
     const bundle = await rollup.rollup({
-        input: ["./src/plugin.ts"],
+        input: ["./src/plugin.ts", "./src/plugin-id.ts"],
         external,
         plugins: [
             aliasPlugin({
@@ -101,7 +101,7 @@ const buildWrappers = async(input, output) => {
 // Build types
 const buildTypes = async(root) => {
     const bundle = await rollup.rollup({
-        input: ["./src/index.ts", "./src/plugin.ts", "./src/vue/client.ts", "./src/vue/server.ts"],
+        input: ["./src/index.ts", "./src/plugin.ts", "./src/plugin-id.ts", "./src/vue/client.ts", "./src/vue/server.ts"],
         external,
         plugins: [
             aliasPlugin({
