@@ -2,7 +2,7 @@
   "name": "vite-ssr-vue2",
   "private": true,
   "description": "Vite utility for vue2 server side rendering",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "main": "./index.mjs",
   "types": "./index.d.ts",
   "scripts": {

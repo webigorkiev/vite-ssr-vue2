@@ -16,7 +16,7 @@ export default (): Plugin => {
                 const id = path.relative(path.resolve(), filename);
                 code = code.
                 replace(
-                    "export default __component__.exports;",
+                    /export\s+default\s+__component__\.exports(;)?/,
                     `__component__.options.__id = ${JSON.stringify(id)};`
                     + "\n"
                     + "export default __component__.exports;"
