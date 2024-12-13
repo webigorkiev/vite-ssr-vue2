@@ -26,6 +26,7 @@ export const rollupBuild = async(
       build: {
         isBuild: true,
         outDir: path.resolve(config.root, "dist/client"),
+        manifest: "assets-manifest.json", // Components Files
         ssrManifest: true,
       },
     },

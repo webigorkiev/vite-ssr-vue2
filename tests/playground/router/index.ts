@@ -6,7 +6,12 @@ export const createRouter = () => new VueRouter({
         {
             path: '/',
             component: () => import("../views/Home.vue"),
-            name: "Index"
+            name: "Index",
+            meta: {
+                modules: [
+                    "tests/playground/views/Home.vue"
+                ]
+            }
         },
         {
             path: '/test',
