@@ -13,6 +13,7 @@ const readIndexTemplate = async(server: ViteDevServer, url: string) => await ser
     await fs.readFile(path.resolve(server.config.root, "index.html"), "utf-8")
 );
 
+
 // handler for dev server middleware
 export const createHandler = (server: ViteDevServer, options: PluginOptionsInternal): Connect.NextHandleFunction => {
 
@@ -26,6 +27,12 @@ export const createHandler = (server: ViteDevServer, options: PluginOptionsInter
             response.setHeader("location", url);
             response.end();
         };
+
+        const error = (e: any, statusCode = 404) => {
+            response.statusCode = statusCode;
+            response.setHeader("content-type", "text/html; charset=utf-8");
+            response.end(e.message);
+        }
 
         try {
             const template = await readIndexTemplate(server, req.originalUrl);
@@ -64,6 +71,7 @@ export const createHandler = (server: ViteDevServer, options: PluginOptionsInter
             response.end(html);
         } catch(e: any) {
             console.error(e);
+            error(e); // Запрос в любос случае должен быть завешен
         }
     };
 };
