@@ -38,7 +38,13 @@ const external = [
         spaces: 2
     });
     log("Copy files to dist dir");
-    await buildPlugin(root);
+    await buildWrappers("./src/plugin.ts", path.resolve(root, "./plugin.js"), {
+        format: "cjs",
+        exports: "auto"
+    });
+    await buildWrappers("./src/plugin.ts", path.resolve(root, "./plugin.mjs"), {
+        format: "esm"
+    });
     log("Build plugin");
     await buildWrappers("./src/index.ts", path.resolve(root, "./index.mjs"));
     await buildWrappers("./src/vue/client.ts", path.resolve(root, "./client.mjs"));
@@ -50,32 +56,8 @@ const external = [
     await checkFileSize("./dist/client.js");
 })();
 
-// Build bundle by rollup
-const buildPlugin = async(root) => {
-    const bundle = await rollup.rollup({
-        input: ["./src/plugin.ts", "./src/plugin-id.ts"],
-        external,
-        plugins: [
-            aliasPlugin({
-                entries: [
-                    { find:/^@\/(.*)/, replacement: './src/$1.ts' }
-                ]
-            }),
-            esbuild({
-                tsconfig: "./tsconfig.json"
-            })
-        ]
-    });
-    await bundle.write({
-        dir: root,
-        format: "cjs",
-        exports: "auto"
-    });
-    await bundle.close();
-};
-
 // Build esm modules wrappers for client and server bundle
-const buildWrappers = async(input, output) => {
+const buildWrappers = async(input, output, write = {}) => {
     const bundle = await rollup.rollup({
         input: input, // ["./src/vue/client.ts", "./src/vue/server.ts"],
         external,
@@ -91,9 +73,9 @@ const buildWrappers = async(input, output) => {
         ],
     });
     await bundle.write({
-        //dir: root,
         format: "esm",
         file: output,
+        ...write
     });
     await bundle.close();
 };
